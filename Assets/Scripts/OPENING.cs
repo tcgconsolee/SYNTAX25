@@ -16,9 +16,21 @@ public class OPENING : MonoBehaviour
         {
             txt.transform.GetChild(i).gameObject.SetActive(false);
         }
-        for (int i = 0; i < txt.transform.childCount; i++) {
+        for (int i = 0; i < txt.transform.childCount; i++)
+        {
             txt.transform.GetChild(i).gameObject.SetActive(true);
-            yield return new WaitForSeconds(.15f);
+            if (i == 17 || i == 9)
+            {
+                yield return new WaitForSeconds(1f);
+            }
+            else {
+                yield return new WaitForSeconds(.2f);
+            }
+            if (i == txt.transform.childCount - 1)
+            {
+                yield return new WaitForSeconds(1.25f);
+                opfinished = true;
+            }
         }
     }
 
@@ -31,10 +43,9 @@ public class OPENING : MonoBehaviour
         }
         if (txt.transform.position.y > (1800.0f * Screen.width / 1920.0f))
         {
-            opfinished = true;
             return;
         }
         var txtpos = txt.transform.position;
-        txt.transform.position = new Vector2(txtpos.x,txtpos.y+(0.6f*Screen.width / 1920.0f));
+        txt.transform.position = new Vector2(txtpos.x,txtpos.y+(0.4f*Screen.width / 1920.0f));
     }
 }
