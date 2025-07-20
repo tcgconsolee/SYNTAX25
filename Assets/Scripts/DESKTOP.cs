@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 public class DESKTOP : MonoBehaviour
 {
@@ -129,7 +130,8 @@ public class DESKTOP : MonoBehaviour
         }
         else if (yn == "n")
         {
-            Debug.Log("cancel");
+            Application.Quit();
+            EditorApplication.isPlaying = false;
         }
         else
         {
