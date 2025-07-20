@@ -54,7 +54,7 @@ public class MASTER : MonoBehaviour
         if (openingsrc.opfinished && opdone == false)
         {
             op.transform.GetChild(0).gameObject.SetActive(false);
-            StartCoroutine(fade_out());
+            StartCoroutine(OpFadeOut());
             opdone = true;
             log.SetActive(true);
             clock_par.SetActive(true);
@@ -66,7 +66,7 @@ public class MASTER : MonoBehaviour
             StartCoroutine(slide_up());
         }
     }
-    IEnumerator fade_out()
+    IEnumerator OpFadeOut()
     {
         float alpha = 1;
         for (float i = -0.01f; alpha > i; alpha -= 0.01f)
@@ -74,6 +74,8 @@ public class MASTER : MonoBehaviour
             op.GetComponent<SpriteRenderer>().color = new Color(0.03921569f, 0f, 0.05882353f, alpha);
             yield return new WaitForSeconds(0.02f);
         }
+        Destroy(op);
+        Destroy(openingsrc);
     }
     IEnumerator slide_up()
     {
