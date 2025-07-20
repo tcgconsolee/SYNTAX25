@@ -47,7 +47,9 @@ public class MASTER : MonoBehaviour
             if (ehit.collider != null && ehit.collider.name == exit.name)
             {
                 Application.Quit();
-                EditorApplication.isPlaying = false;
+                #if UNITY_EDITOR
+                    EditorApplication.isPlaying = false;
+                #endif
             }
         }
         clock.text = System.DateTime.Now.ToString().Split("2025")[1].Split(":")[0] + ":" + System.DateTime.Now.ToString().Split("2025")[1].Split(":")[1];

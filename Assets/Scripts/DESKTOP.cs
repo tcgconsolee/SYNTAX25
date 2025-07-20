@@ -135,7 +135,9 @@ public class DESKTOP : MonoBehaviour
         else if (yn == "n")
         {
             Application.Quit();
-            EditorApplication.isPlaying = false;
+            #if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+            #endif
         }
         else
         {
