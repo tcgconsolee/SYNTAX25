@@ -29,16 +29,22 @@ public class GALLERY : MonoBehaviour
             {
                 if (ghit.collider.name == plus.name)
                 {
-                    if (imgs.transform.localScale.x < 2f)
+                    if (imgs.transform.localScale.x < 1.5f)
                     {
-                        imgs.transform.localScale = new Vector2(imgs.transform.localScale.x + 0.5f, imgs.transform.localScale.y + 0.5f);
+                        Vector3 scaleChange = new Vector3(0.25f, 0.25f, 0f);
+                        Vector3 positionOffset = new Vector3(scaleChange.x *4f, -scaleChange.y*2f , 0f);
+                        imgs.transform.localScale += scaleChange;
+                        imgs.transform.position += positionOffset;
                     }
                 }
                 else if (ghit.collider.name == minus.name)
                 {
                     if (imgs.transform.localScale.x > 1f)
                     {
-                        imgs.transform.localScale = new Vector2(imgs.transform.localScale.x - 0.5f, imgs.transform.localScale.y - 0.5f);
+                        Vector3 scaleChange = new Vector3(0.25f, 0.25f, 0f);
+                        Vector3 positionOffset = new Vector3(scaleChange.x *4f, -scaleChange.y *2f, 0f);
+                        imgs.transform.localScale -= scaleChange;
+                        imgs.transform.position -= positionOffset;
                     }
                 }
             }
