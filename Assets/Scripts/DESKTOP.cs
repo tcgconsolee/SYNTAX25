@@ -18,11 +18,13 @@ public class DESKTOP : MonoBehaviour
     private bool draggingobj = false;
     private bool dragging = false;
     public TMP_InputField input;
+    public GameObject icons;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         alphaVictim = null;
+        icons.SetActive(false);
     }
 
     // Update is called once per frame
@@ -126,7 +128,9 @@ public class DESKTOP : MonoBehaviour
     void tInput(string yn) {
         if (yn == "y")
         {
-            Debug.Log("proceed");
+            StartCoroutine(CloseWin(GameObject.Find("Window_terminal")));
+            GameObject.Find("terminal_ICON").SetActive(false);
+            icons.SetActive(true);
         }
         else if (yn == "n")
         {

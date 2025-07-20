@@ -1,12 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine.EventSystems;
+using UnityEditor;
 
 public class MASTER : MonoBehaviour
 {
     public GameObject opobj;
     public GameObject op;
+    private static RaycastHit2D ehit;
     private OPENING openingsrc;
     private bool opdone;
     public GameObject log;
@@ -16,6 +21,7 @@ public class MASTER : MonoBehaviour
     private LOGIN loginsrc;
     private bool logdone;
     public GameObject desk;
+    public GameObject exit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +40,16 @@ public class MASTER : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            ehit = Physics2D.Raycast(worldPoint, Vector2.zero);
+            if (ehit.collider != null && ehit.collider.name == exit.name)
+            {
+                Application.Quit();
+                EditorApplication.isPlaying = false;
+            }
+        }
         clock.text = System.DateTime.Now.ToString().Split("2025")[1].Split(":")[0] + ":" + System.DateTime.Now.ToString().Split("2025")[1].Split(":")[1];
         if (openingsrc.opfinished && opdone == false)
         {
@@ -64,7 +80,7 @@ public class MASTER : MonoBehaviour
         for (float i = log.transform.position.y; log.transform.position.y < 70f;i++)
         {
             log.transform.position = new Vector2(log.transform.position.x,i);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
         }
     }
 }
