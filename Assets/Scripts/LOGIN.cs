@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 public class LOGIN : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class LOGIN : MonoBehaviour
     }
     void Transmit(string name)
     {
-        if (name == "user" || name == "User")
+        if (name.ToLower() == "user")
         {
             inputField.gameObject.SetActive(false);
             logfinished = true;
