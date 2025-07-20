@@ -12,14 +12,22 @@ public class MASTER : MonoBehaviour
     public GameObject log;
     public TMP_Text clock;
     public GameObject clock_par;
+    public GameObject logobj;
+    private LOGIN loginsrc;
+    private bool logdone;
+    public GameObject desk;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         op.SetActive(true);
         log.SetActive(false);
+        desk.SetActive(false);
         clock_par.SetActive(false);
 
+        logdone = false;
         opdone = false;
+
+        loginsrc = logobj.GetComponent<LOGIN>();
         openingsrc = opobj.GetComponent<OPENING>();
     }
 
@@ -35,7 +43,12 @@ public class MASTER : MonoBehaviour
             log.SetActive(true);
             clock_par.SetActive(true);
         }
-
+        if (loginsrc.logfinished && logdone == false)
+        {
+            logdone = true;
+            desk.SetActive(true);
+            StartCoroutine(slide_up());
+        }
     }
     IEnumerator fade_out()
     {
@@ -44,6 +57,14 @@ public class MASTER : MonoBehaviour
         {
             op.GetComponent<SpriteRenderer>().color = new Color(0.03921569f, 0f, 0.05882353f, alpha);
             yield return new WaitForSeconds(0.02f);
+        }
+    }
+    IEnumerator slide_up()
+    {
+        for (float i = log.transform.position.y; log.transform.position.y < 70f;i++)
+        {
+            log.transform.position = new Vector2(log.transform.position.x,i);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 }

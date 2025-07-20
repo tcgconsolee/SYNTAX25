@@ -47,5 +47,11 @@ TagManager:
   - name: WINDOWS
     uniqueID: 3556337515
     locked: 0
+  - name: menu
+    uniqueID: 2050612015
+    locked: 0
+  - name: bootup
+    uniqueID: 3595099057
+    locked: 0
   m_RenderingLayers:
   - Default
