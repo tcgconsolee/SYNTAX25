@@ -45,7 +45,7 @@ public class DESKTOP : MonoBehaviour
             }
 
             lastClickTime = Time.time;
-            if (dhit.collider == null || dhit.collider.name.Contains("_CROSS"))
+            if (dhit.collider == null || dhit.collider.name.Contains("_CROSS") || dhit.collider.name.Contains("_0"))
             {
                 dragobj = null;
                 draggingobj = false;
