@@ -44,6 +44,9 @@ TagManager:
   - name: btn
     uniqueID: 2841295837
     locked: 0
+  - name: icons
+    uniqueID: 3012577159
+    locked: 0
   - name: WINDOWS
     uniqueID: 3556337515
     locked: 0

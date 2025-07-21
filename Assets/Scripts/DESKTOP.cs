@@ -136,10 +136,6 @@ public class DESKTOP : MonoBehaviour
             obj.transform.localScale = new Vector3(i / 2, i / 2, i / 2);
             yield return new WaitForSeconds(0.02f);
         }
-        for (int i = 0; i < obj.transform.childCount; i++)
-        {
-            obj.transform.GetChild(i).gameObject.SetActive(true);
-        }
         if (obj.name == "Window_terminal")
         {
             StartCoroutine(DelayedActivateInput());  
@@ -174,10 +170,6 @@ public class DESKTOP : MonoBehaviour
     }
     IEnumerator CloseWin(GameObject obj)
     {
-        for (int i = 0; i < obj.transform.childCount; i++)
-        {
-            obj.transform.GetChild(i).gameObject.SetActive(false);
-        }
         obj.transform.localScale = new Vector3(0, 0, 0);
         for (float i = 2f; i > -0.1f; i -= 0.2f)
         {
