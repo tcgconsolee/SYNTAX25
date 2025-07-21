@@ -1,6 +1,10 @@
 using UnityEngine;
+using UnityEditor;
+using System;
+using System.Linq;
 using System.Collections;
-using UnityEngine;
+using System.IO;
+using System.Runtime.InteropServices;
 using TMPro;
 
 public class OPENING : MonoBehaviour
@@ -8,8 +12,47 @@ public class OPENING : MonoBehaviour
     Component txt;
     public bool opfinished;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "risk.txt");
+    private WIN_NOTIF wn_al;
+    
+    private bool IsRisky(WIN_NOTIF wn_al)
+    {
+        if(!File.Exists(filePath))
+        {
+            wn_al.TriggerAlert("RISK", "You're meddling with something you really shouldn't. But, if you're foolish, you can still proceed. Maybe check your desktop, you might find something...");
+            File.WriteAllText(filePath, "Are you SURE you're willing to take this risk? This is not your world afterall...\nType yes in the line below if you are.\nno");
+            return false;
+        }
+        else
+        {
+            string[] lines = File.ReadLines(filePath).Take(3).ToArray();
+            if(lines.Length >= 3 && lines[2].ToLower().Contains("yes"))
+            {
+                return true;
+            }
+
+            if(lines.Length >= 3 && (!(lines[2].ToLower().Contains("yes") || lines[2].ToLower().Contains("no"))))
+            {
+                // TODO: bossfight scene switching shenanigans
+            }
+            wn_al.TriggerAlert("RISK", "What? Still here?");
+            return false;
+        }
+    }
+    
     IEnumerator Start()
     {
+        wn_al = transform.parent.GetComponentInChildren<WIN_NOTIF>();
+        if(!IsRisky(wn_al))
+        {
+            // TODO: Toast alert code goes here
+            Application.Quit();
+            #if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+            #endif
+        }
+        
         opfinished = false;
         txt = GameObject.Find("grptext").GetComponent<Component>();
         for (int i = 0; i < txt.transform.childCount; i++)
