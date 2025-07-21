@@ -22,6 +22,7 @@ public class MASTER : MonoBehaviour
     private bool logdone;
     public GameObject desk;
     public GameObject exit;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
