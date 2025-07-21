@@ -14,6 +14,8 @@ public class MASTER : MonoBehaviour
     private static RaycastHit2D ehit;
     private OPENING openingsrc;
     private bool opdone;
+    public GameObject cur;
+    public GameObject curobj;
     public GameObject log;
     public TMP_Text clock;
     public GameObject clock_par;
@@ -27,9 +29,11 @@ public class MASTER : MonoBehaviour
     void Start()
     {
         op.SetActive(true);
+        cur.SetActive(false);
         log.SetActive(false);
         desk.SetActive(false);
         clock_par.SetActive(false);
+        Cursor.visible = false;
 
         logdone = false;
         opdone = false;
@@ -59,6 +63,7 @@ public class MASTER : MonoBehaviour
             op.transform.GetChild(0).gameObject.SetActive(false);
             StartCoroutine(OpFadeOut());
             opdone = true;
+            cur.SetActive(true);
             log.SetActive(true);
             clock_par.SetActive(true);
         }
@@ -87,5 +92,7 @@ public class MASTER : MonoBehaviour
             log.transform.position = new Vector2(log.transform.position.x,i);
             yield return new WaitForSeconds(0.02f);
         }
+        // Destroy(log);
+        // Destroy(loginsrc);
     }
 }

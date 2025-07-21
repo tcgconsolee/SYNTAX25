@@ -24,21 +24,19 @@ public class OPENING : MonoBehaviour
             File.WriteAllText(filePath, "Are you SURE you're willing to take this risk? This is not your world afterall...\nType yes in the line below if you are.\nno");
             return false;
         }
-        else
-        {
-            string[] lines = File.ReadLines(filePath).Take(3).ToArray();
-            if(lines.Length >= 3 && lines[2].ToLower().Contains("yes"))
-            {
-                return true;
-            }
 
-            if(lines.Length >= 3 && (!(lines[2].ToLower().Contains("yes") || lines[2].ToLower().Contains("no"))))
-            {
-                // TODO: bossfight scene switching shenanigans
-            }
-            wn_al.TriggerAlert("RISK", "What? Still here?");
-            return false;
+        string[] lines = File.ReadLines(filePath).Take(3).ToArray();
+        if(lines.Length >= 3 && lines[2].ToLower().Contains("yes"))
+        {
+            return true;
         }
+
+        if(lines.Length >= 3 && (!(lines[2].ToLower().Contains("yes") || lines[2].ToLower().Contains("no"))))
+        {
+            // TODO: bossfight scene switching shenanigans
+        }
+        wn_al.TriggerAlert("RISK", "What? Still here?");
+        return false;        
     }
     
     IEnumerator Start()
