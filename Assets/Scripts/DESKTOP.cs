@@ -19,6 +19,11 @@ public class DESKTOP : MonoBehaviour
     private bool dragging = false;
     public TMP_InputField input;
     public GameObject icons;
+    public GameObject forgot;
+
+    public Sprite bw2;
+    public GameObject bwinput;
+    public TMP_InputField bwinput2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -97,6 +102,29 @@ public class DESKTOP : MonoBehaviour
             dragging = false;
             draggingobj = false;
             dragobj = null;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach (var result in results)
+            {
+                if (result.gameObject == forgot)
+                {
+                    StartCoroutine(CloseWin(GameObject.Find("Window_mail")));
+                    StartCoroutine(OpenWin(GameObject.Find("Window_browser")));
+                    GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite = bw2;
+                    bwinput.SetActive(false);
+                    bwinput2.text = "orvelia.gov/forgot";
+                    break;
+                }
+            }
         }
     }
 

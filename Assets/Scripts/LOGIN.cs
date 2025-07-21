@@ -54,24 +54,24 @@ public class LOGIN : MonoBehaviour
     }
     void Update()
     {
-    if (Input.GetMouseButtonDown(0))
-    {
-        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        if (Input.GetMouseButtonDown(0))
         {
-            position = Input.mousePosition
-        };
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerData, results);
-
-        foreach (var result in results)
-        {
-            if (result.gameObject == cross)
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
             {
-                StartCoroutine(Close());
-                break;
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach (var result in results)
+            {
+                if (result.gameObject == cross)
+                {
+                    StartCoroutine(Close());
+                    break;
+                }
             }
         }
-    }
     }
 }
