@@ -2212,6 +2212,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 1442647360}
   icons: {fileID: 1172114062}
+  forgot: {fileID: 0}
+  bw2: {fileID: 0}
+  bwinput: {fileID: 0}
+  bwinput2: {fileID: 0}
 --- !u!1 &257977960
 GameObject:
   m_ObjectHideFlags: 0
@@ -7141,6 +7145,8 @@ Transform:
   - {fileID: 1525442106}
   - {fileID: 1178014243}
   - {fileID: 1780685407}
+  - {fileID: 461244764}
+  - {fileID: 1766586652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1006827483
@@ -10681,7 +10687,7 @@ GameObject:
   - component: {fileID: 1512871319}
   - component: {fileID: 1512871321}
   - component: {fileID: 1512871320}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11017,6 +11023,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opobj: {fileID: 331603940}
   op: {fileID: 1474773496}
+  cur: {fileID: 1512871318}
+  curobj: {fileID: 1766586651}
   log: {fileID: 1303022057}
   clock: {fileID: 2060566983}
   clock_par: {fileID: 521240685}
@@ -12503,7 +12511,7 @@ GameObject:
   - component: {fileID: 1662610586}
   - component: {fileID: 1662610585}
   - component: {fileID: 1662610584}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: UICursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12571,7 +12579,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9999
   m_TargetDisplay: 0
 --- !u!224 &1662610587
 RectTransform:
@@ -13219,7 +13227,7 @@ SpriteRenderer:
   m_Size: {x: 0.88, y: 0.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &1720457371
@@ -13899,6 +13907,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760488990}
   m_CullTransparentMesh: 1
+--- !u!1 &1766586651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1766586652}
+  - component: {fileID: 1766586653}
+  m_Layer: 0
+  m_Name: CURSOR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1766586652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766586651}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -866.2955, y: -147.0048, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1006739127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1766586653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766586651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c18c76fa8c74604ba5818d9c1ca7ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hotspot_offset: {x: 0, y: 0}
 --- !u!1 &1772971932
 GameObject:
   m_ObjectHideFlags: 0
