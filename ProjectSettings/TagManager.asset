@@ -53,5 +53,8 @@ TagManager:
   - name: bootup
     uniqueID: 3595099057
     locked: 0
+  - name: sprites
+    uniqueID: 3850124799
+    locked: 0
   m_RenderingLayers:
   - Default
