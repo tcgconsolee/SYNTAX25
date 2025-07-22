@@ -103,12 +103,12 @@ public class BOSSM : MonoBehaviour
         }
         for (float i = 0f; i < 12.66543f; i += 0.1f)
         {
-            obj.transform.GetChild(1).localScale = new Vector3(i, i, i);
+            obj.transform.GetChild(2).localScale = new Vector3(i, i, i);
             yield return new WaitForSeconds(0.015f);
         }
         for (float i = 12.66543f; i > -0.1f; i -= 0.4f)
         {
-            obj.transform.GetChild(1).localScale = new Vector3(i, i, i);
+            obj.transform.GetChild(2).localScale = new Vector3(i, i, i);
             yield return new WaitForSeconds(0.005f);
         }
         Destroy(obj);
