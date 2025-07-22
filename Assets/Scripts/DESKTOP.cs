@@ -31,6 +31,9 @@ public class DESKTOP : MonoBehaviour
     private int windowOrder = 0;
     public Sprite tsprite;
 
+    public GameObject properties;
+    public GameObject metadata;
+
     void Start()
     {
         alphaVictim = null;
@@ -38,6 +41,7 @@ public class DESKTOP : MonoBehaviour
 
         minput.onEndEdit.AddListener(mCheck);
         minput2.onEndEdit.AddListener(mCheck);
+
     }
     void mCheck(string text)
     {
@@ -160,6 +164,30 @@ public class DESKTOP : MonoBehaviour
         if (alphaVictim != null && dhit.collider != alphaVictim)
         {
             alphaVictim.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dhit = Physics2D.Raycast(worldPoint, Vector2.zero);
+            if (dhit.collider != null && dhit.collider.name == "chocolatelovers84_0")
+            {
+                properties.SetActive(true);
+            }
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dhit = Physics2D.Raycast(worldPoint, Vector2.zero);
+            if (dhit.collider != null)
+            {
+                if (dhit.collider.name == properties.name)
+                {
+                    StartCoroutine(OpenWin(metadata));
+                    BringWindowToFront(metadata);
+                }
+            }
+                properties.SetActive(false);
         }
     }
 

@@ -25,6 +25,9 @@ public class MASTER : MonoBehaviour
     public GameObject desk;
     public GameObject exit;
     public TMP_InputField clockinput;
+
+    public GameObject file;
+    public TMP_InputField finput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,6 +45,19 @@ public class MASTER : MonoBehaviour
         openingsrc = opobj.GetComponent<OPENING>();
 
         clockinput.onEndEdit.AddListener(TextChange);
+
+        finput.onEndEdit.AddListener(fCheck);
+    }
+    void fCheck(string text)
+    {
+        if (text == "chocolatelovers84.png")
+        {
+            file.SetActive(true);
+        }
+        else
+        {
+            file.SetActive(false);
+        }
     }
 
     void TextChange(string time)
@@ -52,6 +68,14 @@ public class MASTER : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+            if (clock.text == "19:42")
+            {
+                file.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            }
+            else
+            {
+                file.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
+            }
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -59,9 +83,9 @@ public class MASTER : MonoBehaviour
             if (ehit.collider != null && ehit.collider.name == exit.name)
             {
                 Application.Quit();
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                     EditorApplication.isPlaying = false;
-                #endif
+#endif
             }
         }
         if (openingsrc.opfinished && opdone == false)

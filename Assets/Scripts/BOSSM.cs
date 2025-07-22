@@ -149,7 +149,7 @@ public class BOSSM : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            if (bhit.collider == null || bhit.collider.name.Contains("_CROSS") || bhit.collider.name.Contains("_0") || bhit.collider.name == virus.transform.GetChild(0).gameObject.name)
+            if (bhit.collider == null || bhit.collider.name.Contains("_CROSS") || bhit.collider.name.Contains("_0") || bhit.collider.name.Contains("explosion") || bhit.collider.name == virus.transform.GetChild(0).gameObject.name)
             {
                 dragobj = null;
                 draggingobj = false;
