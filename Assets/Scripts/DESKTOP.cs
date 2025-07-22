@@ -24,14 +24,34 @@ public class DESKTOP : MonoBehaviour
     public GameObject bwinput;
     public TMP_InputField bwinput2;
 
-    private int windowOrder = 0; // Tracks current top layer order
+    public TMP_InputField minput;
+    public TMP_InputField minput2;
+    public Sprite msprite;
+
+    private int windowOrder = 0;
+    public Sprite tsprite;
 
     void Start()
     {
         alphaVictim = null;
         icons.SetActive(false);
-    }
 
+        minput.onEndEdit.AddListener(mCheck);
+        minput2.onEndEdit.AddListener(mCheck);
+    }
+    void mCheck(string text)
+    {
+        if (minput2.text == "georje.granfrere@orvelia.gov" && minput.text == "dontbeevil7")
+        {
+            GameObject.Find("Window_mail").GetComponent<SpriteRenderer>().sprite = msprite;
+            minput.gameObject.SetActive(false);
+            minput2.gameObject.SetActive(false);
+            GameObject.Find("forgot").SetActive(false);
+            GameObject.Find("mail_CROSS").transform.localPosition = new Vector3(4.5f, 3.45f, 0);
+            BoxCollider2D box = GameObject.Find("Window_mail").GetComponent<BoxCollider2D>();
+            box.offset = new Vector2(0, 3.52f);
+        } 
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -53,6 +73,17 @@ public class DESKTOP : MonoBehaviour
 
             lastClickTime = Time.time;
 
+            if (dhit.collider != null && dhit.collider.name.Contains("_CROSS"))
+            {
+                var name = "Window_" + dhit.collider.name.Split("_CROSS")[0];
+                StartCoroutine(CloseWin(GameObject.Find(name)));
+            }
+            else if (dhit.collider != null && dhit.collider.name.Contains("_ICON"))
+            {
+                dhit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.6f);
+                alphaVictim = dhit.collider;
+            }
+
             if (dhit.collider == null || dhit.collider.name.Contains("_CROSS") || dhit.collider.name.Contains("_0"))
             {
                 dragobj = null;
@@ -65,11 +96,31 @@ public class DESKTOP : MonoBehaviour
                 draggingobj = true;
                 dragging = false;
 
-                // If it's part of a window, bring whole window forward
                 Transform parentWin = GetWindowParent(dragobj.transform);
                 if (parentWin != null)
                 {
                     BringWindowToFront(parentWin.gameObject);
+                }
+            }
+
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach (var result in results)
+            {
+                if (result.gameObject == forgot)
+                {
+                    StartCoroutine(CloseWin(GameObject.Find("Window_mail")));
+                    StartCoroutine(OpenWin(GameObject.Find("Window_browser")));
+                    GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite = bw2;
+                    bwinput.SetActive(false);
+                    bwinput2.text = "orvelia.gov/forgot";
+                    break;
                 }
             }
         }
@@ -104,41 +155,6 @@ public class DESKTOP : MonoBehaviour
             dragging = false;
             draggingobj = false;
             dragobj = null;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition
-            };
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            foreach (var result in results)
-            {
-                if (result.gameObject == forgot)
-                {
-                    StartCoroutine(CloseWin(GameObject.Find("Window_mail")));
-                    StartCoroutine(OpenWin(GameObject.Find("Window_browser")));
-                    GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite = bw2;
-                    bwinput.SetActive(false);
-                    bwinput2.text = "orvelia.gov/forgot";
-                    break;
-                }
-            }
-        }
-
-        if (dhit.collider != null && dhit.collider.name.Contains("_CROSS"))
-        {
-            var name = "Window_" + dhit.collider.name.Split("_CROSS")[0];
-            StartCoroutine(CloseWin(GameObject.Find(name)));
-        }
-        else if (dhit.collider != null && dhit.collider.name.Contains("_ICON"))
-        {
-            dhit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.6f);
-            alphaVictim = dhit.collider;
         }
 
         if (alphaVictim != null && dhit.collider != alphaVictim)
@@ -185,15 +201,17 @@ public class DESKTOP : MonoBehaviour
         if (yn == "y")
         {
             StartCoroutine(CloseWin(GameObject.Find("Window_terminal")));
-            GameObject.Find("terminal_ICON").SetActive(false);
             icons.SetActive(true);
+            GameObject.Find("Window_terminal").GetComponent<SpriteRenderer>().sprite = tsprite;
+            GameObject.Find("Window_terminal").transform.GetChild(0).gameObject.SetActive(false);
+            GameObject.Find("Window_terminal").transform.GetChild(1).gameObject.SetActive(true);
         }
         else if (yn == "n")
         {
             Application.Quit();
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
             EditorApplication.isPlaying = false;
-    #endif
+#endif
         }
         else
         {
@@ -203,7 +221,7 @@ public class DESKTOP : MonoBehaviour
 
     void BringWindowToFront(GameObject win)
     {
-        windowOrder += 2; // Parent and children get different values
+        windowOrder += 2;
         SetSortingOrderRecursive(win.transform, windowOrder);
     }
 

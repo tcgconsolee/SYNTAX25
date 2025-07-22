@@ -24,6 +24,7 @@ public class MASTER : MonoBehaviour
     private bool logdone;
     public GameObject desk;
     public GameObject exit;
+    public TMP_InputField clockinput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,6 +40,13 @@ public class MASTER : MonoBehaviour
 
         loginsrc = logobj.GetComponent<LOGIN>();
         openingsrc = opobj.GetComponent<OPENING>();
+
+        clockinput.onEndEdit.AddListener(TextChange);
+    }
+
+    void TextChange(string time)
+    {
+        clock.text = time;
     }
 
     // Update is called once per frame
@@ -56,7 +64,6 @@ public class MASTER : MonoBehaviour
                 #endif
             }
         }
-        clock.text = System.DateTime.Now.ToString().Split("2025")[1].Split(":")[0] + ":" + System.DateTime.Now.ToString().Split("2025")[1].Split(":")[1];
         if (openingsrc.opfinished && opdone == false)
         {
             op.transform.GetChild(0).gameObject.SetActive(false);

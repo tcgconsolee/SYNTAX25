@@ -24,8 +24,22 @@ public class Flying_char : MonoBehaviour
 
         if (collider.gameObject.name == "sprite_0")
         {
-            boss.GetComponent<BOSSM>().PlayerHealth -= 1;
+            boss.GetComponent<BOSSM>().PlayerHealth -= 2;
         }
-        Destroy(gameObject);
+        if (collider.gameObject.name.Contains("corrupted"))
+        {
+            if (Random.Range(0f, 1f) > 0.95f) {
+                Destroy(collider.gameObject);
+            }
+        }
+        if (Random.Range(0f, 1f) > 0.3f)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Vector2 collisionDirection = (transform.position - collider.transform.position).normalized;
+            rb.linearVelocity = Vector2.Reflect(rb.linearVelocity, collisionDirection);
+        }
     }
 }

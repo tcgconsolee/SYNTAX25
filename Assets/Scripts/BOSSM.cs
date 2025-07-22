@@ -73,7 +73,7 @@ public class BOSSM : MonoBehaviour
     }
     IEnumerator DataAtk()
     {
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < 100; i++)
         {
             string lalala = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:'\",.<>?/\\`~";
             char x = lalala[Random.Range(0, lalala.Length)];
@@ -95,22 +95,17 @@ public class BOSSM : MonoBehaviour
     IEnumerator PopAtk()
     {
         GameObject obj = Instantiate(popprefab, virus.transform.position, Quaternion.identity);
+        obj.transform.GetChild(1).gameObject.SetActive(false);
         yield return new WaitForSeconds(2f);
         if (!(obj.transform.localScale.x > 0.9f))
         {
             Destroy(obj);
             StopCoroutine(PopAtk());
+            yield break;
         }
-        for (float i = 0f; i < 12.66543f; i += 0.1f)
-        {
-            obj.transform.GetChild(2).localScale = new Vector3(i, i, i);
-            yield return new WaitForSeconds(0.015f);
-        }
-        for (float i = 12.66543f; i > -0.1f; i -= 0.4f)
-        {
-            obj.transform.GetChild(2).localScale = new Vector3(i, i, i);
-            yield return new WaitForSeconds(0.005f);
-        }
+        obj.transform.GetChild(1).gameObject.SetActive(true);
+        obj.GetComponent<Renderer>().enabled = false;
+        yield return new WaitForSeconds(0.9f);
         Destroy(obj);
     }
 
