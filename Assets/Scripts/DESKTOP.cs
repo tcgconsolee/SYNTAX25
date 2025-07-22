@@ -208,10 +208,10 @@ public class DESKTOP : MonoBehaviour
     IEnumerator OpenWin(GameObject obj)
     {
         obj.transform.localScale = Vector3.zero;
-        for (float i = 0.0f; i < 2.1f; i += 0.2f)
+        for (float i = 0.0f; i < 2.1f; i += 0.4f)
         {
             obj.transform.localScale = new Vector3(i / 2, i / 2, i / 2);
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         if (obj.name == "Window_terminal")
@@ -222,10 +222,10 @@ public class DESKTOP : MonoBehaviour
 
     IEnumerator CloseWin(GameObject obj)
     {
-        for (float i = 2f; i > -0.1f; i -= 0.2f)
+        for (float i = 2f; i > -0.1f; i -= 0.4f)
         {
             obj.transform.localScale = new Vector3(i / 2, i / 2, i / 2);
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.1f);
         }
         obj.transform.localScale = Vector3.zero;
     }
