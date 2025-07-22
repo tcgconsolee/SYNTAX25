@@ -26,12 +26,15 @@ public class BOSSM : MonoBehaviour
     public GameObject phealth;
     public GameObject popprefab;
     public GameObject popprefab2;
-
+    public GameObject fileprefab;
+    public GameObject good;
+    public GameObject bad;
     private float idleTime = 0f;
     private float idleAmplitude = 0.1f;
     private float idleFrequency = 1f;
     private Vector2 originalSpritePos;
     private Rigidbody2D spriteRb;
+    public int timeLasted;
 
     IEnumerator Start()
     {
@@ -49,8 +52,21 @@ public class BOSSM : MonoBehaviour
         top.isTrigger = false;
         protection.isTrigger = false;
         originalSpritePos = spriteRb.position;
+        for (float i = 0f; i < 1f; i += 0.1f)
+        {
+            GameObject.Find("exitgame_0").transform.localScale = new Vector3(i, i, i);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
-
+    IEnumerator TimeStart()
+    {
+        timeLasted = 0;
+        while (!end)
+        {
+            timeLasted += 1;
+            yield return new WaitForSeconds(1f);
+        }
+    }
     IEnumerator Boss()
     {
         for (float pos = 3.97f; pos > 1f; pos -= 0.05f)
@@ -58,8 +74,6 @@ public class BOSSM : MonoBehaviour
             virus.transform.position = new Vector2(virus.transform.position.x, pos);
             yield return new WaitForSeconds(0.065f);
         }
-        StartCoroutine(Data());
-        StartCoroutine(Pop());
     }
 
     IEnumerator Data()
@@ -78,14 +92,30 @@ public class BOSSM : MonoBehaviour
         while (!end)
         {
             yield return new WaitForSeconds(10f);
-            StartCoroutine(PopAtkSmall());
+            if (timeLasted > 50)
+            {
+                StartCoroutine(PopAtkSmall2());
+            }
+            else
+            {
+                StartCoroutine(PopAtkSmall());
+            }
+            yield return new WaitForSeconds(20f);
+        }
+    }
+
+    IEnumerator Files()
+    {
+        while (!end)
+        {
+            FileAtk();
             yield return new WaitForSeconds(20f);
         }
     }
 
     IEnumerator DataAtk()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 100+timeLasted/2; i++)
         {
             string lalala = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:'\",.<>?/\\`~";
             char x = lalala[Random.Range(0, lalala.Length)];
@@ -131,9 +161,9 @@ public class BOSSM : MonoBehaviour
 
     IEnumerator PopAtkSmall()
     {
-        GameObject obj1 = Instantiate(popprefab2, new Vector3(-5f,0f,0f), Quaternion.identity);
-        GameObject obj2 = Instantiate(popprefab2, new Vector3(0f,0f,0f), Quaternion.identity);
-        GameObject obj3 = Instantiate(popprefab2, new Vector3(5f,0f,0f), Quaternion.identity);
+        GameObject obj1 = Instantiate(popprefab2, new Vector3(-5f, 0f, 0f), Quaternion.identity);
+        GameObject obj2 = Instantiate(popprefab2, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameObject obj3 = Instantiate(popprefab2, new Vector3(5f, 0f, 0f), Quaternion.identity);
         obj1.transform.localScale = Vector3.zero;
         obj2.transform.localScale = Vector3.zero;
         obj3.transform.localScale = Vector3.zero;
@@ -172,6 +202,71 @@ public class BOSSM : MonoBehaviour
         Destroy(obj3);
     }
 
+    IEnumerator PopAtkSmall2()
+    {
+        GameObject obj1 = Instantiate(popprefab2, new Vector3(-5f, 0f, 0f), Quaternion.identity);
+        GameObject obj2 = Instantiate(popprefab2, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameObject obj3 = Instantiate(popprefab2, new Vector3(5f, 0f, 0f), Quaternion.identity);
+        GameObject obj4 = Instantiate(popprefab2, new Vector3(-2.5f, 1f, 0f), Quaternion.identity);
+        GameObject obj5 = Instantiate(popprefab2, new Vector3(2.5f, 1f, 0f), Quaternion.identity);
+        obj1.transform.localScale = Vector3.zero;
+        obj2.transform.localScale = Vector3.zero;
+        obj3.transform.localScale = Vector3.zero;
+        obj4.transform.localScale = Vector3.zero;
+        obj5.transform.localScale = Vector3.zero;
+        obj1.transform.GetChild(1).gameObject.SetActive(false);
+        obj2.transform.GetChild(1).gameObject.SetActive(false);
+        obj3.transform.GetChild(1).gameObject.SetActive(false);
+        obj4.transform.GetChild(1).gameObject.SetActive(false);
+        obj5.transform.GetChild(1).gameObject.SetActive(false);
+        for (float i = 0.0f; i < 0.5083974f; i += 0.1f)
+        {
+            obj1.transform.localScale = new Vector3(i, i, i);
+            obj2.transform.localScale = new Vector3(i, i, i);
+            obj3.transform.localScale = new Vector3(i, i, i);
+            obj4.transform.localScale = new Vector3(i, i, i);
+            obj5.transform.localScale = new Vector3(i, i, i);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(2f);
+        if (!(obj1.transform.localScale.x > 0f))
+        {
+            Destroy(obj1);
+        }
+        if (!(obj2.transform.localScale.x > 0f))
+        {
+            Destroy(obj2);
+        }
+        if (!(obj3.transform.localScale.x > 0f))
+        {
+            Destroy(obj3);
+        }
+        if (!(obj4.transform.localScale.x > 0f))
+        {
+            Destroy(obj4);
+        }
+        if (!(obj5.transform.localScale.x > 0f))
+        {
+            Destroy(obj5);
+        }
+        obj1.transform.GetChild(1).gameObject.SetActive(true);
+        obj2.transform.GetChild(1).gameObject.SetActive(true);
+        obj3.transform.GetChild(1).gameObject.SetActive(true);
+        obj4.transform.GetChild(1).gameObject.SetActive(true);
+        obj5.transform.GetChild(1).gameObject.SetActive(true);
+        obj1.GetComponent<Renderer>().enabled = false;
+        obj2.GetComponent<Renderer>().enabled = false;
+        obj3.GetComponent<Renderer>().enabled = false;
+        obj4.GetComponent<Renderer>().enabled = false;
+        obj5.GetComponent<Renderer>().enabled = false;
+        yield return new WaitForSeconds(0.9f);
+        Destroy(obj1);
+        Destroy(obj2);
+        Destroy(obj3);
+        Destroy(obj4);    
+        Destroy(obj5);    
+    }
+
     IEnumerator Popupclose()
     {
         var obj = GameObject.Find("Window_suspension(Clone)");
@@ -182,8 +277,54 @@ public class BOSSM : MonoBehaviour
         }
     }
 
+    void FileAtk()
+    {
+        GameObject obj = Instantiate(fileprefab, new Vector3(3.85f, 3.61f, 0), Quaternion.identity);
+    }
+
+    IEnumerator SizeInc()
+    {
+        for (float i = 1f; i > 0f; i -= 0.1f)
+        {
+            GameObject.Find("exitgame_0").transform.localScale = new Vector3(i, i, i);
+            yield return new WaitForSeconds(0.1f);
+        }
+        Destroy(GameObject.Find("exitgame_0"));
+    }
+
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+            {
+                PointerEventData pointerData = new PointerEventData(EventSystem.current)
+                {
+                    position = Input.mousePosition
+                };
+
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerData, results);
+
+                foreach (var result in results)
+                {
+                    if (result.gameObject.name == "Yes")
+                    {
+                        Application.Quit();
+#if UNITY_EDITOR
+                        EditorApplication.isPlaying = false;
+#endif
+                    }
+                    else if (result.gameObject.name == "No")
+                    {
+                    StartCoroutine(SizeInc());
+                        good.SetActive(false);
+                        bad.SetActive(true);
+                        StartCoroutine(TimeStart());
+                        StartCoroutine(Data());
+                        StartCoroutine(Pop());
+                        StartCoroutine(Files());
+                    }
+                }
+            }
         float sx = 4.84066f * ((float)PlayerHealth / 100f);
         phealth.transform.localScale = new Vector3(sx, 0.5589254f, 1);
         Vector3 position = new Vector3(4.84066f / 2f - 10.5562f, phealth.transform.position.y, phealth.transform.position.z);
