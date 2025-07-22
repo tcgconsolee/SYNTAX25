@@ -33,6 +33,7 @@ public class DESKTOP : MonoBehaviour
 
     public GameObject properties;
     public GameObject metadata;
+    public Sprite kernel;
 
     void Start()
     {
@@ -186,8 +187,21 @@ public class DESKTOP : MonoBehaviour
                     StartCoroutine(OpenWin(metadata));
                     BringWindowToFront(metadata);
                 }
+                if (dhit.collider.name == "chocolatelovers84_0")
+                {
+                    if (dhit.collider.gameObject.GetComponent<SpriteRenderer>().color.a == 1f)
+                    {
+                        GameObject window = GameObject.Find("Window_img");
+                        window.GetComponent<SpriteRenderer>().sprite = kernel;
+                        window.transform.GetChild(1).gameObject.SetActive(false);
+                        window.transform.GetChild(2).gameObject.SetActive(false);
+                        window.transform.GetChild(3).gameObject.SetActive(false);
+                        StartCoroutine(OpenWin(window));
+                        BringWindowToFront(window);
+                    }
+                }
             }
-                properties.SetActive(false);
+            properties.SetActive(false);
         }
     }
 
