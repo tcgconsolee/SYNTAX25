@@ -63,7 +63,7 @@ public class VIDEO : MonoBehaviour
                 }
             }
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             vhit = Physics2D.Raycast(worldPoint, Vector2.zero);

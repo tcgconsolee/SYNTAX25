@@ -795,6 +795,7 @@ public class BOSSM : MonoBehaviour
         if (PlayerHealth <= 0 && !end)
         {
             end = true;
+            healthbars.SetActive(false);
             fail.SetActive(true);
         }
         if (Input.GetMouseButtonDown(0))
@@ -810,6 +811,7 @@ public class BOSSM : MonoBehaviour
                 if (result.gameObject.name == "Yes")
                 {
                     end = true;
+                    healthbars.SetActive(false);
                     fail.SetActive(true);
                 }
                 else if (result.gameObject.name == "No")
