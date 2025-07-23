@@ -37,6 +37,12 @@ public class DESKTOP : MonoBehaviour
     public Sprite code;
 
     public AudioSource openwindow;
+    public GameObject urgent1;
+    public GameObject classified1;
+    public GameObject click1;
+
+    public Sprite urgents;
+    public Sprite classifieds;
     void Start()
     {
         alphaVictim = null;
@@ -201,6 +207,24 @@ public class DESKTOP : MonoBehaviour
                         StartCoroutine(OpenWin(window));
                         BringWindowToFront(window);
                     }
+                }
+                if (dhit.collider.name == "urgent_0")
+                {
+                    GameObject.Find("Window_mail").GetComponent<SpriteRenderer>().sprite = urgents;
+                    click1.SetActive(true);
+                    urgent1.SetActive(true);
+                    classified1.SetActive(true);
+                }
+                else if (dhit.collider.name == "classified_0")
+                {
+                    GameObject.Find("Window_mail").GetComponent<SpriteRenderer>().sprite = classifieds;
+                    click1.SetActive(false);
+                    urgent1.SetActive(true);
+                    classified1.SetActive(true);
+                }
+                if (dhit.collider.name == "Click_0")
+                {
+                    FindObjectOfType<Shake>().StartCoroutine(FindObjectOfType<Shake>().ShakeC(0.1f, 0.2f));
                 }
             }
             properties.SetActive(false);

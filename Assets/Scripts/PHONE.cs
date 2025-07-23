@@ -14,6 +14,7 @@ public class PHONE : MonoBehaviour
     public Sprite phone;
     public Sprite biodatatxt;
     public Sprite broken;
+    public AudioSource phonecall;
     void Start()
     {
 
@@ -31,6 +32,10 @@ public class PHONE : MonoBehaviour
                     GameObject.Find("Window_phone").GetComponent<SpriteRenderer>().sprite = phone;
                     GameObject.Find("Window_phone").transform.GetChild(1).gameObject.SetActive(true);
                     GameObject.Find("Window_phone").transform.GetChild(2).gameObject.SetActive(false);
+                    if (phonecall.isPlaying)
+                    {
+                        phonecall.Stop();
+                    }
                 }
             }
         }
@@ -76,6 +81,7 @@ public class PHONE : MonoBehaviour
                             GameObject.Find("Window_phone").GetComponent<SpriteRenderer>().sprite = caller;
                             GameObject.Find("Window_phone").transform.GetChild(1).gameObject.SetActive(false);
                             GameObject.Find("Window_phone").transform.GetChild(2).gameObject.SetActive(true);
+                            phonecall.Play();
                         }
                         else if (digits.text == "463546" && GameObject.Find("desktop").GetComponent<SpriteRenderer>().sprite == broken)
                         {

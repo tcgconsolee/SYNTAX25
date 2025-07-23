@@ -11,6 +11,11 @@ public class TERMINAL : MonoBehaviour
     public TMP_InputField cat;
     public TMP_InputField decode;
     public TMP_InputField other;
+    public Sprite phishing;
+    public GameObject urgent;
+    public GameObject classified;
+    public GameObject Click;
+    public GameObject notif;
     // Update is called once per frame
     void Start()
     {
@@ -51,6 +56,17 @@ public class TERMINAL : MonoBehaviour
             decode.interactable = false;
             other.interactable = true;
             other.ActivateInputField();
+            GameObject.Find("Window_mail").GetComponent<SpriteRenderer>().sprite = phishing;
+            urgent.SetActive(true);
+            Click.SetActive(true);
+            classified.SetActive(true);
+            StartCoroutine(Notification());
         }
+    }
+    IEnumerator Notification()
+    {
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(GameObject.Find("DESKTOP").GetComponent<DESKTOP>().OpenWin(notif));
+        GameObject.Find("DESKTOP").GetComponent<DESKTOP>().BringWindowToFront(notif);
     }
 }

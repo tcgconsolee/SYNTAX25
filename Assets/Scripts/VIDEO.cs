@@ -10,7 +10,8 @@ public class VIDEO : MonoBehaviour
 {
     private static RaycastHit2D vhit;
     public GameObject sound;
-    public TMP_Text radio; 
+    public GameObject windowv;
+    public TMP_Text radio;
     public GameObject backward;
     public GameObject forward;
     public GameObject stop;
@@ -18,6 +19,8 @@ public class VIDEO : MonoBehaviour
     public GameObject redheart;
     public GameObject heart;
     private int si;
+    public AudioSource vm;
+    public AudioSource staticvm;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +30,42 @@ public class VIDEO : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (windowv.transform.localScale.x > 0.5f)
+        {
+            if (radio.text == "94.1")
+            {
+                if (!vm.isPlaying)
+                {
+                    vm.Play();
+                }
+                if (staticvm.isPlaying)
+                {
+                    staticvm.Stop();
+                }
+            }
+            else
+            {
+                if (!staticvm.isPlaying)
+                {
+                    staticvm.Play();
+                }
+                if (vm.isPlaying)
+                {
+                    vm.Stop();
+                }
+            }
+        }
+        else
+        {
+            if (staticvm.isPlaying)
+            {
+                staticvm.Stop();
+            }
+            if (vm.isPlaying)
+            {
+                vm.Stop();
+            }
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -42,6 +81,26 @@ public class VIDEO : MonoBehaviour
                 {
                     redheart.SetActive(false);
                     heart.SetActive(true);
+                }
+                if (vhit.collider.name == play.name)
+                {
+                    if (radio.text == "94.1")
+                    {
+                        if (!vm.isPlaying)
+                        {
+                            vm.Play();
+                        }
+                    }
+                }
+                if (vhit.collider.name == stop.name)
+                {
+                    if (radio.text == "94.1")
+                    {
+                        if (vm.isPlaying)
+                        {
+                            vm.Stop();
+                        }
+                    }
                 }
                 if (vhit.collider.name == sound.name)
                 {
