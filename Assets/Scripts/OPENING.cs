@@ -11,6 +11,7 @@ public class OPENING : MonoBehaviour
 {
     Component txt;
     public bool opfinished;
+    public GameObject opencut;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "risk.txt");
@@ -41,6 +42,9 @@ public class OPENING : MonoBehaviour
     
     IEnumerator Start()
     {
+        opencut.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        opencut.SetActive(false);
         wn_al = transform.parent.GetComponentInChildren<WIN_NOTIF>();
         if(!IsRisky(wn_al))
         {
