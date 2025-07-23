@@ -45,8 +45,12 @@ public class BOSSM : MonoBehaviour
     public GameObject fail;
     public GameObject endblack;
     public AudioSource ring;
+    public GameObject bosscut;
     IEnumerator Start()
     {
+        bosscut.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        bosscut.SetActive(false);
         protection.isTrigger = true;
         spriteRb = sprite.GetComponent<Rigidbody2D>();
         for (float pos = -10.44f; pos < -7f; pos += 0.1f)

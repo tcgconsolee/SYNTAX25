@@ -23,6 +23,15 @@ public class BROWSER : MonoBehaviour
     public Sprite cracked;
 
     public GameObject flicker;
+
+    public GameObject orvelia1;
+    public GameObject orvelia2;
+    public GameObject orvelia3;
+    public GameObject orvelia4;
+
+    public GameObject true1;
+    public GameObject true2;
+    public GameObject true3;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -121,6 +130,39 @@ public class BROWSER : MonoBehaviour
         callback?.Invoke();
     }
     // Update is called once per frame
+    IEnumerator Orvelia()
+    {
+        orvelia1.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        orvelia1.SetActive(false);
+        orvelia2.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        orvelia2.SetActive(false);
+        orvelia3.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        orvelia3.SetActive(false);
+        orvelia4.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        Application.Quit();
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
+    }
+    IEnumerator True()
+    {
+        true1.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        true1.SetActive(false);
+        true2.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        true2.SetActive(false);
+        true3.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        Application.Quit();
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -142,11 +184,11 @@ public class BROWSER : MonoBehaviour
                         uploaded.text = "sent";
                         if (GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite == nwiki)
                         {
-                            //true ending
+                            StartCoroutine(True());
                         }
                         else if (GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite == nupload)
                         {
-                            //orvelia ending
+                            StartCoroutine(Orvelia());
                         }
                     }
                 }
