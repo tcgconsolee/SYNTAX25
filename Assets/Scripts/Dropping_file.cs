@@ -4,11 +4,13 @@ using TMPro;
 public class Dropping_file : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public AudioSource hitaudio;
     public GameObject boss;
 
     void Start()
     {
         boss = GameObject.Find("BOSSM");
+        hitaudio = GameObject.Find("HIT").GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -18,6 +20,7 @@ public class Dropping_file : MonoBehaviour
         else
         if (collider.gameObject.name == "sprite_0")
         {
+            hitaudio.Play();
             boss.GetComponent<BOSSM>().PlayerHealth -= 5;
             FindObjectOfType<Shake>().StartCoroutine(FindObjectOfType<Shake>().ShakeC(0.1f, 0.2f));
             Destroy(gameObject);

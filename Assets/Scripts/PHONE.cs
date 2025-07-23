@@ -12,6 +12,8 @@ public class PHONE : MonoBehaviour
     public TMP_InputField digits;
     public Sprite caller;
     public Sprite phone;
+    public Sprite biodatatxt;
+    public Sprite broken;
     void Start()
     {
 
@@ -74,6 +76,12 @@ public class PHONE : MonoBehaviour
                             GameObject.Find("Window_phone").GetComponent<SpriteRenderer>().sprite = caller;
                             GameObject.Find("Window_phone").transform.GetChild(1).gameObject.SetActive(false);
                             GameObject.Find("Window_phone").transform.GetChild(2).gameObject.SetActive(true);
+                        }
+                        else if (digits.text == "463546" && GameObject.Find("desktop").GetComponent<SpriteRenderer>().sprite == broken)
+                        {
+                            GameObject.Find("Window_notepad").GetComponent<SpriteRenderer>().sprite = biodatatxt;
+                            StartCoroutine(GameObject.Find("DESKTOP").GetComponent<DESKTOP>().OpenWin(GameObject.Find("Window_notepad")));
+                            GameObject.Find("DESKTOP").GetComponent<DESKTOP>().BringWindowToFront(GameObject.Find("Window_notepad"));
                         }
                     }
                     break;

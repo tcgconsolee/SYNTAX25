@@ -34,7 +34,9 @@ public class DESKTOP : MonoBehaviour
     public GameObject properties;
     public GameObject metadata;
     public Sprite kernel;
+    public Sprite code;
 
+    public AudioSource openwindow;
     void Start()
     {
         alphaVictim = null;
@@ -205,14 +207,16 @@ public class DESKTOP : MonoBehaviour
         }
     }
 
-    IEnumerator OpenWin(GameObject obj)
+    public IEnumerator OpenWin(GameObject obj)
     {
         obj.transform.localScale = Vector3.zero;
+        openwindow.Play();
         for (float i = 0.0f; i < 2.1f; i += 0.4f)
         {
             obj.transform.localScale = new Vector3(i / 2, i / 2, i / 2);
             yield return new WaitForSeconds(0.1f);
         }
+        BringWindowToFront(obj);
 
         if (obj.name == "Window_terminal")
         {
@@ -237,7 +241,12 @@ public class DESKTOP : MonoBehaviour
         input.ActivateInputField();
         input.onValueChanged.AddListener(tInput);
     }
-
+    public void NotepadChange()
+    {
+        GameObject.Find("Window_notepad").GetComponent<SpriteRenderer>().sprite = code;
+        StartCoroutine(OpenWin(GameObject.Find("Window_notepad")));
+        BringWindowToFront(GameObject.Find("Window_notepad"));
+    }
     void tInput(string yn)
     {
         if (yn == "y")
@@ -261,7 +270,7 @@ public class DESKTOP : MonoBehaviour
         }
     }
 
-    void BringWindowToFront(GameObject win)
+    public void BringWindowToFront(GameObject win)
     {
         windowOrder += 2;
         SetSortingOrderRecursive(win.transform, windowOrder);

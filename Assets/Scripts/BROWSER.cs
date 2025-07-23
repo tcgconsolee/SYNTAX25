@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -17,7 +18,11 @@ public class BROWSER : MonoBehaviour
     public Sprite nsurf;
     public Sprite nforgot;
     public Sprite nupload;
+    public Sprite nwiki;
     public TMP_Text uploaded;
+    public Sprite cracked;
+
+    public GameObject flicker;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,7 +34,7 @@ public class BROWSER : MonoBehaviour
     }
     void Upload(string text)
     {
-        if (text == "chocolatelovers84.png")
+        if (text == "biodata.txt")
         {
             uploaded.color = new Color(0f, 0f, 0f, 1f);
         }
@@ -64,16 +69,32 @@ public class BROWSER : MonoBehaviour
             GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite = nforgot;
         }
         else
-        if (text == "orvelia.gov/upload" || text.ToLower() == "kernel augustus")
+        if (!(GameObject.Find("desktop").GetComponent<SpriteRenderer>().sprite == cracked))
+        {
+            if (text.ToLower() == "kernel augustus")
+            {
+                StartCoroutine(Flicker(GameObject.Find("DESKTOP").GetComponent<DESKTOP>().NotepadChange));
+            }
+        }
+        else
+        if (text == "orvelia.gov/upload")
         {
             uploaded.gameObject.SetActive(true);
             inp3.gameObject.SetActive(false);
             inp4.gameObject.SetActive(true);
             inp1.gameObject.SetActive(false);
 
-            inp2.text = "orvelia.gov/upload";
-
             GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite = nupload;
+        }
+        else
+        if (text == "wikidrains.org")
+        {
+            uploaded.gameObject.SetActive(true);
+            inp3.gameObject.SetActive(false);
+            inp4.gameObject.SetActive(true);
+            inp1.gameObject.SetActive(false);
+
+            GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite = nwiki;
         }
         else
         {
@@ -86,6 +107,19 @@ public class BROWSER : MonoBehaviour
         }
     }
 
+
+    IEnumerator Flicker(Action callback)
+    {
+        yield return new WaitForSeconds(1f);
+        flicker.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        flicker.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        flicker.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        flicker.SetActive(false);
+        callback?.Invoke();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -106,6 +140,14 @@ public class BROWSER : MonoBehaviour
                     if (uploaded.color.a == 1f)
                     {
                         uploaded.text = "sent";
+                        if (GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite == nwiki)
+                        {
+                            //true ending
+                        }
+                        else if (GameObject.Find("Window_browser").GetComponent<SpriteRenderer>().sprite == nupload)
+                        {
+                            //orvelia ending
+                        }
                     }
                 }
             }
