@@ -43,6 +43,8 @@ public class DESKTOP : MonoBehaviour
 
     public Sprite urgents;
     public Sprite classifieds;
+    public bool tdone = false;
+    public bool mdone = false;
     void Start()
     {
         alphaVictim = null;
@@ -63,6 +65,7 @@ public class DESKTOP : MonoBehaviour
             GameObject.Find("mail_CROSS").transform.localPosition = new Vector3(4.5f, 3.45f, 0);
             BoxCollider2D box = GameObject.Find("Window_mail").GetComponent<BoxCollider2D>();
             box.offset = new Vector2(0, 3.52f);
+            mdone = true;
         } 
     }
     void Update()
@@ -280,6 +283,7 @@ public class DESKTOP : MonoBehaviour
             GameObject.Find("Window_terminal").GetComponent<SpriteRenderer>().sprite = tsprite;
             GameObject.Find("Window_terminal").transform.GetChild(0).gameObject.SetActive(false);
             GameObject.Find("Window_terminal").transform.GetChild(1).gameObject.SetActive(true);
+            tdone = true;
         }
         else if (yn == "n")
         {

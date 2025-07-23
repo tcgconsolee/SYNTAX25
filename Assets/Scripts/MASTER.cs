@@ -21,7 +21,7 @@ public class MASTER : MonoBehaviour
     public GameObject clock_par;
     public GameObject logobj;
     private LOGIN loginsrc;
-    private bool logdone;
+    public bool logdone;
     public GameObject desk;
     public GameObject exit;
     public TMP_InputField clockinput;
