@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class BOSSM : MonoBehaviour
 {
@@ -40,6 +41,10 @@ public class BOSSM : MonoBehaviour
     public AudioSource winoalert;
     public AudioSource exoaudio;
     public AudioSource winoopen;
+
+    public GameObject fail;
+    public GameObject endblack;
+    public AudioSource ring;
     IEnumerator Start()
     {
         protection.isTrigger = true;
@@ -331,6 +336,102 @@ public class BOSSM : MonoBehaviour
         Destroy(obj4);
         Destroy(obj5);
     }
+    IEnumerator PopAtkSmallEnd()
+    {
+        GameObject obj1 = Instantiate(popprefab2, new Vector3(-5f, 0f, 0f), Quaternion.identity);
+        GameObject obj2 = Instantiate(popprefab2, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameObject obj3 = Instantiate(popprefab2, new Vector3(5f, 0f, 0f), Quaternion.identity);
+        GameObject obj4 = Instantiate(popprefab2, new Vector3(-2.5f, 1f, 0f), Quaternion.identity);
+        GameObject obj5 = Instantiate(popprefab2, new Vector3(2.5f, 1f, 0f), Quaternion.identity);
+        GameObject obj6 = Instantiate(popprefab2, new Vector3(-5f, 2.5f, 0f), Quaternion.identity);
+        GameObject obj7 = Instantiate(popprefab2, new Vector3(0f, 2.5f, 0f), Quaternion.identity);
+        GameObject obj8 = Instantiate(popprefab2, new Vector3(5f, 2.5f, 0f), Quaternion.identity);
+        GameObject obj9 = Instantiate(popprefab2, new Vector3(-5f, -2.5f, 0f), Quaternion.identity);
+        GameObject obj10 = Instantiate(popprefab2, new Vector3(0f, -2.5f, 0f), Quaternion.identity);
+        GameObject obj11 = Instantiate(popprefab2, new Vector3(5f, -2.5f, 0f), Quaternion.identity);
+        winoalert.Play();
+        winoalert.Play();
+        winoalert.Play();
+        winoalert.Play();
+        winoalert.Play();
+        obj1.transform.localScale = Vector3.zero;
+        obj2.transform.localScale = Vector3.zero;
+        obj3.transform.localScale = Vector3.zero;
+        obj4.transform.localScale = Vector3.zero;
+        obj5.transform.localScale = Vector3.zero;
+        obj6.transform.localScale = Vector3.zero;
+        obj7.transform.localScale = Vector3.zero;
+        obj8.transform.localScale = Vector3.zero;
+        obj9.transform.localScale = Vector3.zero;
+        obj10.transform.localScale = Vector3.zero;
+        obj11.transform.localScale = Vector3.zero;
+        obj1.transform.GetChild(1).gameObject.SetActive(false);
+        obj2.transform.GetChild(1).gameObject.SetActive(false);
+        obj3.transform.GetChild(1).gameObject.SetActive(false);
+        obj4.transform.GetChild(1).gameObject.SetActive(false);
+        obj5.transform.GetChild(1).gameObject.SetActive(false);
+        obj6.transform.GetChild(1).gameObject.SetActive(false);
+        obj7.transform.GetChild(1).gameObject.SetActive(false);
+        obj8.transform.GetChild(1).gameObject.SetActive(false);
+        obj9.transform.GetChild(1).gameObject.SetActive(false);
+        obj10.transform.GetChild(1).gameObject.SetActive(false);
+        obj11.transform.GetChild(1).gameObject.SetActive(false);
+        for (float i = 0.0f; i < 0.5083974f; i += 0.1f)
+        {
+            obj1.transform.localScale = new Vector3(i, i, i);
+            obj2.transform.localScale = new Vector3(i, i, i);
+            obj3.transform.localScale = new Vector3(i, i, i);
+            obj4.transform.localScale = new Vector3(i, i, i);
+            obj5.transform.localScale = new Vector3(i, i, i);
+            obj6.transform.localScale = new Vector3(i, i, i);
+            obj7.transform.localScale = new Vector3(i, i, i);
+            obj8.transform.localScale = new Vector3(i, i, i);
+            obj9.transform.localScale = new Vector3(i, i, i);
+            obj10.transform.localScale = new Vector3(i, i, i);
+            obj11.transform.localScale = new Vector3(i, i, i);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(2f);
+        obj1.transform.GetChild(1).gameObject.SetActive(true);
+        obj2.transform.GetChild(1).gameObject.SetActive(true);
+        obj3.transform.GetChild(1).gameObject.SetActive(true);
+        obj4.transform.GetChild(1).gameObject.SetActive(true);
+        obj5.transform.GetChild(1).gameObject.SetActive(true);
+        obj6.transform.GetChild(1).gameObject.SetActive(true);
+        obj7.transform.GetChild(1).gameObject.SetActive(true);
+        obj8.transform.GetChild(1).gameObject.SetActive(true);
+        obj9.transform.GetChild(1).gameObject.SetActive(true);
+        obj10.transform.GetChild(1).gameObject.SetActive(true);
+        obj11.transform.GetChild(1).gameObject.SetActive(true);
+        exoaudio.Play();
+        exoaudio.Play();
+        exoaudio.Play();
+        exoaudio.Play();
+        exoaudio.Play();
+        obj1.GetComponent<Renderer>().enabled = false;
+        obj2.GetComponent<Renderer>().enabled = false;
+        obj3.GetComponent<Renderer>().enabled = false;
+        obj4.GetComponent<Renderer>().enabled = false;
+        obj5.GetComponent<Renderer>().enabled = false;
+        obj6.GetComponent<Renderer>().enabled = false;
+        obj7.GetComponent<Renderer>().enabled = false;
+        obj8.GetComponent<Renderer>().enabled = false;
+        obj9.GetComponent<Renderer>().enabled = false;
+        yield return new WaitForSeconds(0.9f);
+        endblack.SetActive(true);
+        ring.Play();
+        Destroy(obj1);
+        Destroy(obj2);
+        Destroy(obj3);
+        Destroy(obj4);
+        Destroy(obj5);
+        Destroy(obj6);
+        Destroy(obj7);
+        Destroy(obj8);
+        Destroy(obj9);
+        Destroy(obj10);
+        Destroy(obj11);
+    }
 
     IEnumerator CollapseCircleSequence()
     {
@@ -422,7 +523,15 @@ public class BOSSM : MonoBehaviour
             if (obj != null) Destroy(obj);
         }
     }
-
+    IEnumerator Ending()
+    {
+        healthbars.SetActive(false);
+        audio.Stop();
+        StartCoroutine(PopAtkSmallEnd());
+        StartCoroutine(PopAtkSmallEnd());
+        yield return new WaitForSeconds(9f);
+        SceneManager.LoadScene("ENDING_SCENE");
+    }
     IEnumerator LaserSweep()
     {
         int laserLength = 40;
@@ -675,9 +784,18 @@ public class BOSSM : MonoBehaviour
 
     void Update()
     {
-        if (PlayerHealth <= 0)
+        if (timeLasted > 120)
+        {
+            if (!end)
+            {
+                end = true;
+                StartCoroutine(Ending());  
+            }
+        }
+        if (PlayerHealth <= 0 && !end)
         {
             end = true;
+            fail.SetActive(true);
         }
         if (Input.GetMouseButtonDown(0))
         {
@@ -691,10 +809,8 @@ public class BOSSM : MonoBehaviour
             {
                 if (result.gameObject.name == "Yes")
                 {
-                    Application.Quit();
-#if UNITY_EDITOR
-                    EditorApplication.isPlaying = false;
-#endif
+                    end = true;
+                    fail.SetActive(true);
                 }
                 else if (result.gameObject.name == "No")
                 {
@@ -719,6 +835,20 @@ public class BOSSM : MonoBehaviour
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             bhit = Physics2D.Raycast(worldPoint, Vector2.zero);
+            if (end)
+            {
+                if (bhit.collider != null && bhit.collider.name == "Try again_0")
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+                else if (bhit.collider != null && bhit.collider.name == "Exit_0")
+                {
+                    Application.Quit();
+#if UNITY_EDITOR
+                    EditorApplication.isPlaying = false;
+#endif
+                }
+            }
             if (bhit.collider != null && bhit.collider.name == "suspension_CROSS")
             {
                 StartCoroutine(Popupclose());

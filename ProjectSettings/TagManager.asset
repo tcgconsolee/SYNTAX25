@@ -59,7 +59,10 @@ TagManager:
   - name: menu
     uniqueID: 2050612015
     locked: 0
-  - name: healthbar
+  - name: healthbars
+    uniqueID: 3680369409
+    locked: 0
+  - name: cutscenes
     uniqueID: 637412305
     locked: 0
   m_RenderingLayers:
