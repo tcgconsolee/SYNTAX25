@@ -8,6 +8,10 @@ public class CURSOR : MonoBehaviour
     
     void Start()
     {
+        if(Cursor.visible)
+        {
+            Cursor.visible = false;
+        }
         UI_curs = GameObject.Find("UICursor").transform.GetChild(0).gameObject;
         rect_trans = UI_curs.GetComponent<RectTransform>();
     }
