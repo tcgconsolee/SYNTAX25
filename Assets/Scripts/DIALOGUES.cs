@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEditor;
-using UnityEngine.SceneManagement;
 
 public class DIALOGUES : MonoBehaviour
 {
@@ -146,6 +145,7 @@ public class DIALOGUES : MonoBehaviour
                 clumsy.Stop();
             }
         }
+        yield return new WaitForSeconds(49f);
         clumsy.Play();
         captions.text = "HOORAY-";
         yield return new WaitForSeconds(2f);
@@ -342,6 +342,7 @@ public class DIALOGUES : MonoBehaviour
         yield return new WaitForSeconds(4f);
         captions.text = "";
         serious.Stop();
+        idle = false;
         for (float i = 15f; !(GameObject.Find("BROWSER").GetComponent<BROWSER>().inp2.text == "kernel augustus"); i -= 1f)
         {
             yield return new WaitForSeconds(1f);
@@ -360,6 +361,5 @@ public class DIALOGUES : MonoBehaviour
         yield return new WaitForSeconds(4f);
         captions.text = "";
         clumsy.Stop();
-        SceneManager.LoadScene("BOSS_SCENE");
     }
 }

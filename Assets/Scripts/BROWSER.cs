@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class BROWSER : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class BROWSER : MonoBehaviour
     public GameObject true1;
     public GameObject true2;
     public GameObject true3;
+
+    public GameObject endflick;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -128,7 +131,24 @@ public class BROWSER : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         flicker.SetActive(false);
         callback?.Invoke();
+        yield return new WaitForSeconds(0.25f);
+        flicker.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        endflick.transform.GetChild(0).gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        endflick.transform.GetChild(1).gameObject.SetActive(true);
+        endflick.transform.GetChild(1).GetComponent<TMP_Text>().text = endflick.transform.GetChild(1).GetComponent<TMP_Text>().text + WIN_USERNAME.GetWindowsUserName();
+        yield return new WaitForSeconds(3f);
+        endflick.transform.GetChild(2).gameObject.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        endflick.transform.GetChild(0).gameObject.SetActive(false);
+        endflick.transform.GetChild(1).gameObject.SetActive(false);
+        endflick.transform.GetChild(2).gameObject.SetActive(false);
+        endflick.transform.GetChild(3).gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("BOSS_SCENE");
     }
+
     // Update is called once per frame
     IEnumerator Orvelia()
     {

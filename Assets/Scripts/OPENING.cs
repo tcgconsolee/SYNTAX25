@@ -18,6 +18,7 @@ public class OPENING : MonoBehaviour
     private WIN_NOTIF wn_al;
     private bool cutfinished = false;
     
+    public AudioSource intro;
     private bool IsRisky(WIN_NOTIF wn_al)
     {
         if (!File.Exists(filePath))
@@ -55,9 +56,10 @@ public class OPENING : MonoBehaviour
         txt = GameObject.Find("grptext").GetComponent<Component>();
         txt.gameObject.SetActive(false);
         opencut.SetActive(true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(10f);
         opencut.SetActive(false);
         txt.gameObject.SetActive(true);
+        intro.Play();
         cutfinished = true;
         opfinished = false;
         for (int i = 0; i < txt.transform.childCount; i++)
