@@ -46,7 +46,7 @@ public class BROWSER : MonoBehaviour
     }
     void Upload(string text)
     {
-        if (text == "biodata.txt")
+        if (text == "biodata.txt" || text == "classified.docx")
         {
             uploaded.color = new Color(0f, 0f, 0f, 1f);
         }
